@@ -18,6 +18,9 @@ def _read_image_as_array(path, dtype, load_size, crop_size, flip):
     f = Image.open(path)
 
     A, B = numpy.array_split(numpy.asarray(f), 2, axis=1)
+    if hasattr(f, 'close'):
+        f.close()
+        
     A = _resize(A, load_size, Image.BILINEAR, dtype)
     B = _resize(B, load_size, Image.NEAREST, dtype)
 

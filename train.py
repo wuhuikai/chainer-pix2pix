@@ -32,11 +32,12 @@ def main():
     parser.add_argument('--beta1', type=float, default=0.5, help='Momentum term of adam')
     parser.add_argument('--lambd', type=float, default=100, help='Weight on L1 term in objective')
     parser.add_argument('--data_root', default='datasets', help='Folder containing train, val & test subfolder, as well as train.txt, val.txt, test.txt')
+    parser.add_argument('--n_thread', type=int, default=10, help='# of workers for loading data')
     parser.add_argument('--resume', default='', help='Resume the training from snapshot')
     parser.add_argument('--AtoB', type=bool, default=False, help='BtoA if False')
     parser.add_argument('--out', default='result', help='Directory to output the result')
     parser.add_argument('--snapshot_interval', type=int, default=10, help='Interval of snapshot (epoch)')
-    parser.add_argument('--print_interval', type=int, default=1, help='Interval of printing log to console')
+    parser.add_argument('--print_interval', type=int, default=50, help='Interval of printing log to console')
     parser.add_argument('--plot_interval', type=int, default=100, help='Interval of plot')
     args = parser.parse_args()
 
@@ -72,7 +73,7 @@ def main():
     print('Valset contains {} image files'.format(len(valset)))
     print('')
 
-    train_iter = chainer.iterators.MultiprocessIterator(trainset, args.batch_size)
+    train_iter = chainer.iterators.MultiprocessIterator(trainset, args.batch_size, n_processes=args.n_thread, n_prefetch=args.n_thread)
 
     # Set up a trainer
     updater = Pix2pixUpdater(

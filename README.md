@@ -1,5 +1,11 @@
 # Image-to-Image Translation (Chainer)
 Chainer implementation for [Image-to-Image Translation Using Conditional Adversarial Networks](https://phillipi.github.io/pix2pix/), it's transplanted from [pix2pix](https://github.com/phillipi/pix2pix).
+## Result
+![](readme_images/result (3).png)
+![](readme_images/result (4).png)
+![](readme_images/result (5).png)
+![](readme_images/result (6).png)
+![](readme_images/result (9).png)
 
 ## Step by Step
 ### Download Datasets --- Cityscapes
@@ -25,6 +31,11 @@ Sign up, Log in & Download **gtFine_trainvaltest.zip** & **leftImg8bit_trainvalt
 	python train.py
 ```
 **Note**: Run `python train.py -h` for more options.
+### Test
+```bash
+	python test.py
+```
+**Note**: Run `python test.py -h` for more options.
 
 ## Network Architecture
 ### Generator
